@@ -1,5 +1,6 @@
 import React from "react"; 
 import { Link } from "react-router-dom";
+import {connect} from "react-redux";
 // reactstrap components
 import {
     Button,
@@ -16,13 +17,14 @@ import {
     Col,
     Container,
     Table
-  } from "reactstrap";
+} from "reactstrap";
 
   import Header from "../../components/Headers/Header";
 
 
 class Customers extends React.Component {
     render(){
+        console.log(this.props);
         return(
             <>
                 <Header />
@@ -106,4 +108,13 @@ class Customers extends React.Component {
     }
 }
 
-export default Customers;
+// export default Customers;
+const mapStateToProps = (state) =>({
+    ...state
+  })
+  
+  const mapDispatchToProps = (dispatch) =>({
+  
+  })
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(Customers);

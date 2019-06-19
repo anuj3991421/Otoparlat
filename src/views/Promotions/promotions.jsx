@@ -20,22 +20,36 @@ import {
     ModalHeader,
     ModalBody,
     Label
-  } from "reactstrap";
-  import DatePicker from "react-datepicker";
-  import "react-datepicker/dist/react-datepicker.css";
-  import Header from "../../components/Headers/Header";
+} from "reactstrap";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import Header from "../../components/Headers/Header";
+
+import Rules from "../../lib/Rules/FormRules.js";
+import FormValidator from "../../lib/Rules/FormValidator"; 
+import InputError from "../../components/Elements/InputError";
 
 
 class Promotions extends React.Component {
 
     constructor(props) {
         super(props);
+
+        this.validator = new FormValidator(Rules.addPromotion);
+
         this.state = {
           promotionModal: false,
           startDate: new Date(),
           endDate: new Date(),
-          promotion_type: ''
+          promotion_type: '',
+          price: '',
+          benefits: '',
+          generated_code: '',
+          pcode: '',
+          validation: this.validator.valid(),
         };
+
+        this.formsubmitted = false;
 
         this.startDateChange = this.startDateChange.bind(this);
         this.endDateChange = this.endDateChange.bind(this);
@@ -65,9 +79,35 @@ class Promotions extends React.Component {
         });
     }
 
+    onChange = (e) => {
+        const {name, value} = e.target;
+        this.setState({[name]: value});
+    }
+
+    onSubmit = (e) => {
+        e.preventDefault();
+        const {price , benefits, generated_code, pcode} = this.state;
+        const validation = this.validator.validate(this.state);
+        this.setState({ validation,isLoading:true });
+        console.log(validation);
+        if(validation.isValid){
+            this.addPromotion();
+            this.setState(
+                {
+                    price: '',
+                    benefits: '',
+                    generated_code: '',
+                    pcode: ''
+                }
+            );
+        } else {
+          this.setState({ isLoading:false });
+        }
+    }
+
     render(){
 
-        const {promotionModal, promotion_type} = this.state;
+        const {promotionModal, promotion_type, validation} = this.state;
 
         return(
             <>
@@ -267,7 +307,8 @@ class Promotions extends React.Component {
                                         <Col md={6}>
                                             <FormGroup>
                                                 <Label for="price">Price</Label>
-                                                <Input type="text" name="price" id="price" placeholder="How Many TL Promotion" />
+                                                <Input type="text" name="price" id="price" placeholder="How Many TL Promotion"  onChange={this.onChange.bind(this)} />
+                                                <InputError show={validation.price.isValid} message={validation.price.message} />
                                             </FormGroup>
                                         </Col>
                                         <Col md={6}>
@@ -322,7 +363,8 @@ class Promotions extends React.Component {
                                         { (this.state.promotion_type == 1 || this.state.promotion_type == 2) && 
                                             <FormGroup>
                                                 <Label for="benefits">How Many Benefits</Label>
-                                                <Input type="text" name="benefits" id="benefits`" placeholder="How many times can you benefit" />
+                                                <Input type="text" name="benefits" id="benefits" placeholder="How many times can you benefit" onChange={this.onChange.bind(this)} />
+                                                <InputError show={validation.benefits.isValid} message={validation.benefits.message} />
                                             </FormGroup>
                                         }
                                         { (this.state.promotion_type == 3) && 
@@ -339,18 +381,20 @@ class Promotions extends React.Component {
                                             { (this.state.promotion_type == 1 || this.state.promotion_type == 2) && 
                                                 <FormGroup>
                                                     <Label for="pcode">Promotional Code</Label>
-                                                    <Input type="text" name="pcode" id="pcode" placeholder="Promotional Code" />
+                                                    <Input type="text" name="pcode" id="pcode" placeholder="Promotional Code" onChange={this.onChange.bind(this)} />
+                                                    <InputError show={validation.pcode.isValid} message={validation.pcode.message} />
                                                 </FormGroup>
                                             }
                                             { (this.state.promotion_type == 3) && 
                                                 <FormGroup>
                                                     <Label for="benefits">How many codes are generated</Label>
-                                                    <Input type="text" name="generated_code" id="generated_code`" placeholder="Example: 100" />
+                                                    <Input type="text" name="generated_code" id="generated_code`" placeholder="Example: 100" onChange={this.onChange.bind(this)} />
+                                                    <InputError show={validation.generated_code.isValid} message={validation.generated_code.message} />
                                                 </FormGroup>
                                             }
                                         </Col>
                                     </Row>
-                                    <div className="text-center">
+                                    <div className="text-center" onClick={this.onSubmit.bind(this)}>
                                         <Button color="primary">Save Promotion</Button>
                                     </div>
                                 </div>

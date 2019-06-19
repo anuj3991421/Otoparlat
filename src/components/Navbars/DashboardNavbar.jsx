@@ -6,6 +6,11 @@ import {Navbar, Container, Form, FormGroup, Input, InputGroup, InputGroupAddon, 
     Media, DropdownMenu, DropdownItem} from "reactstrap";
     
 class DashboardNavbar extends React.Component {
+
+    logout = () => {
+        this.props.history.push("/auth/login");
+    }
+
     render() {
         return (
             <>
@@ -59,7 +64,7 @@ class DashboardNavbar extends React.Component {
                                         <span>Change Password</span>
                                     </DropdownItem>
                                     <DropdownItem divider />
-                                    <DropdownItem href="#pablo" onClick={e => e.preventDefault()}>
+                                    <DropdownItem href="#pablo" onClick={this.logout}>
                                         <i className="ni ni-user-run" />
                                         <span>Logout</span>
                                     </DropdownItem>

@@ -66,14 +66,12 @@ class Dashboard extends React.Component {
   }
 }
 
-export default Dashboard;
+const mapStateToProps = (state) =>({
+  ...state
+})
 
-// const mapStateToProps = (state) =>({
-//   ...state
-// })
+const mapDispatchToProps = (dispatch) =>({
 
-// const mapDispatchToProps = (dispatch) =>({
+})
 
-// })
-
-// export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

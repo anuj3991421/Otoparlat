@@ -22,13 +22,24 @@ import {
   } from "reactstrap";
 import Header from "../../../components/Headers/Header";
 
+import Rules from "../../../lib/Rules/FormRules.js";
+import FormValidator from "../../../lib/Rules/FormValidator"; 
+import InputError from "../../../components/Elements/InputError";
+
 class QuestionList extends React.Component {
 
     constructor(props) {
         super(props);
+        
+        this.validator = new FormValidator(Rules.addQuestion);
+
         this.state = {
             questionModal: false,
-        };
+            title: '',
+            explanation: '',
+            validation: this.validator.valid(),
+        }
+        this.formsubmitted = false;
     }
 
     addQuestion(){
@@ -37,9 +48,34 @@ class QuestionList extends React.Component {
         }));
     }
 
+    onChange = (e) => {
+        const {name, value} = e.target;
+        this.setState({[name]: value});
+    }
+
+    onSubmit = (e) => {
+        e.preventDefault();
+        const {title , explanation} = this.state;
+        const validation = this.validator.validate(this.state);
+        this.setState({ validation,isLoading:true });
+        
+        if(validation.isValid){
+          // this.props.loginUser('email@email.com', '12345678');
+          this.addQuestion();
+          this.setState(
+            {
+                title: '',
+                explanation: '',
+            }
+        );
+        } else {
+          this.setState({ isLoading:false });
+        }
+    }
+
     render(){
 
-        const {questionModal} = this.state;
+        const {questionModal, validation} = this.state;
 
         return (
             <>
@@ -127,15 +163,18 @@ class QuestionList extends React.Component {
                                     name="title"
                                     id="title"
                                     placeholder="Write a Title"
+                                    onChange={this.onChange.bind(this)}
                                 />
+                                <InputError show={validation.title.isValid} message={validation.title.message} />
                             </FormGroup>
 
                             <FormGroup>
                                 <Label for="explanation">Explanation</Label>
-                                <Input type="textarea" name="explanation" id="explanation" placeholder="Write Description" />
+                                <Input type="textarea" name="explanation" id="explanation" placeholder="Write Description" onChange={this.onChange.bind(this)} />
+                                <InputError show={validation.explanation.isValid} message={validation.explanation.message} />
                             </FormGroup>
 
-                            <div className="text-center">
+                            <div className="text-center" onClick={this.onSubmit.bind(this)}>
                                 <Button color="primary" type="button">Save New Frequently Asked Questions</Button>
                             </div>
                                     
