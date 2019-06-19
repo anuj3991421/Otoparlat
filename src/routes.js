@@ -19,7 +19,10 @@ import ChangePassword from './views/Profile/ChangePassword';
 
 //Page related routes
 import questionList from './views/Pages/Questions/questionList';
-
+import TermsOfUse from './views/Pages/TermsofUse/TermsofUse';
+import PrivacyPolicy from "./views/Pages/PrivacyPolicy/PrivacyPolicy";
+import CancellationPolicy from "./views/Pages/CancellationPolicy/CancellationPolicy";
+import AboutUs from "./views/Pages/AboutUs/AboutUs";
 
 //Login routes
 var loginRoutes = [
@@ -61,7 +64,7 @@ var pageRoutes = [
     name: "Terms of Use and Membership Agreement",
     id: "termsOfUse",
     icon: "fa fa-arrow-circle-right text-info",
-    // component: termsOfUse,
+    component: TermsOfUse,
     layout: "/page"
   },
   {
@@ -69,7 +72,7 @@ var pageRoutes = [
     name: "Privacy Policy and KVKK Agreement",
     id: "privacyPolicy",
     icon: "fa fa-arrow-circle-right text-info",
-    // component: termsOfUse,
+    component: PrivacyPolicy,
     layout: "/page"
   },
   {
@@ -77,7 +80,7 @@ var pageRoutes = [
     name: "Cancellation Policy",
     id: "cancellationPolicy",
     icon: "fa fa-arrow-circle-right text-info",
-    // component: termsOfUse,
+    component: CancellationPolicy,
     layout: "/page"
   },
   {
@@ -85,7 +88,7 @@ var pageRoutes = [
     name: "About Us",
     id: "aboutUs",
     icon: "fa fa-arrow-circle-right text-info",
-    // component: termsOfUse,
+    component: AboutUs,
     layout: "/page"
   },
 ]

@@ -8,18 +8,39 @@ import {
     FormGroup,
     Form,
     Input,
+    Label,
     InputGroupAddon,
     InputGroupText,
     InputGroup,
     Row,
     Col,
     Container,
+    Modal,
+    ModalHeader,
+    ModalBody,
     Table
   } from "reactstrap";
 import Header from "../../../components/Headers/Header";
 
 class QuestionList extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            questionModal: false,
+        };
+    }
+
+    addQuestion(){
+        this.setState(prevState => ({
+            questionModal: !prevState.questionModal
+        }));
+    }
+
     render(){
+
+        const {questionModal} = this.state;
+
         return (
             <>
                 {/* Page content */}
@@ -31,7 +52,7 @@ class QuestionList extends React.Component {
                                     <h3 className="mb-0">Frequently Asked Questions</h3>
                                 </Col>
                                 <Col sm={6}>
-                                    <Button className="pull-right" color="primary" style={{float:'right'}} size="sm">
+                                    <Button onClick={(e) => this.addQuestion()} className="pull-right" color="primary" style={{float:'right'}} size="sm">
                                         Asked Questions
                                     </Button>
                                 </Col>
@@ -93,6 +114,34 @@ class QuestionList extends React.Component {
                         </Table>
                     </Card>
                 </div>
+
+                <Modal size="lg" isOpen={questionModal} toggle={(e) => this.addQuestion()} className={this.props.className}>
+                    <ModalHeader toggle={(e) => this.addQuestion()}><span style={{fontSize: 20}}> Frequently Asked Questions </span></ModalHeader>
+                    <ModalBody>
+                        <Form role="form">
+
+                            <FormGroup>
+                                <Label for="title">Title</Label>
+                                <Input
+                                    type="text"
+                                    name="title"
+                                    id="title"
+                                    placeholder="Write a Title"
+                                />
+                            </FormGroup>
+
+                            <FormGroup>
+                                <Label for="explanation">Explanation</Label>
+                                <Input type="textarea" name="explanation" id="explanation" placeholder="Write Description" />
+                            </FormGroup>
+
+                            <div className="text-center">
+                                <Button color="primary" type="button">Save New Frequently Asked Questions</Button>
+                            </div>
+                                    
+                        </Form>
+                    </ModalBody>
+                </Modal>
             </>
                     
         )

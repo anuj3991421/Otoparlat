@@ -33,14 +33,15 @@ class Promotions extends React.Component {
         this.state = {
           promotionModal: false,
           startDate: new Date(),
-          endDate: new Date()
+          endDate: new Date(),
+          promotion_type: ''
         };
 
         this.startDateChange = this.startDateChange.bind(this);
         this.endDateChange = this.endDateChange.bind(this);
     }
 
-    addPromotion(type, e) {
+    addPromotion() {
         this.setState(prevState => ({
             promotionModal: !prevState.promotionModal
         }));
@@ -58,16 +59,28 @@ class Promotions extends React.Component {
         });
     }
 
+    changeType = (e) => {
+        this.setState({
+            promotion_type: e.target.value
+        });
+    }
+
     render(){
 
-        const {promotionModal} = this.state;
+        const {promotionModal, promotion_type} = this.state;
 
         return(
             <>
                 <Header />
-                {/* Page content */}
+
                 <Container className="mt--7" fluid>
-                    {/* Table */}
+                    <Button className="pull-right" color="primary" style={{float:'right'}} size="sm" onClick={(e) => this.addPromotion()}>
+                        Add Promotion
+                    </Button>
+                </Container>
+
+                {/* Page content */}
+                <Container className="mt-5" fluid>
                     <Row>
                         <div className="col">
                             <Card className="shadow">
@@ -79,11 +92,11 @@ class Promotions extends React.Component {
                                                 This is the type of promotion that each user can only use once.
                                             </p>
                                         </Col>
-                                        <Col sm={6}>
+                                        {/* <Col sm={6}>
                                             <Button className="pull-right" color="primary" style={{float:'right'}} size="sm" onClick={(e) => this.addPromotion(1, e)}>
                                                 Add Promotion
                                             </Button>
-                                        </Col>
+                                        </Col> */}
                                     </Row>
                                 </CardHeader>
                                 <Table className="align-items-center table-flush" responsive>
@@ -112,93 +125,9 @@ class Promotions extends React.Component {
                             </Card>
                         </div>
                     </Row>
-                    <Modal size="lg" isOpen={promotionModal} toggle={(e) => this.addPromotion(1, e)} className={this.props.className}>
-                        <ModalHeader toggle={(e) => this.addPromotion(1, e)}><span style={{fontSize: 20}}> Add Promotion </span></ModalHeader>
-                        <ModalBody>
-                            <Form role="form">
-                                <Row>
-                                    <Col md={6}>
-                                        <FormGroup>
-                                            <Label for="price">Price</Label>
-                                            <Input type="text" name="price" id="price" placeholder="How Many TL Promotion" />
-                                        </FormGroup>
-                                    </Col>
-                                    <Col md={6}>
-                                        <FormGroup style={{display: 'grid'}} className="datePickerDiv">
-                                            <Label for="examplePassword">Start</Label>
-                                            <DatePicker
-                                                selected={this.state.startDate}
-                                                onChange={this.startDateChange}
-                                                className="form-control"
-                                                popperPlacement="bottom"
-                                                
-                                                popperModifiers={{
-                                                    flip: {
-                                                        behavior: ["bottom"] // don't allow it to flip to be above
-                                                    },
-                                                    preventOverflow: {
-                                                        enabled: false // tell it not to try to stay within the view (this prevents the popper from covering the element you clicked)
-                                                    },
-                                                    hide: {
-                                                        enabled: false // turn off since needs preventOverflow to be enabled
-                                                    }
-                                                }}
-                                            />
-                                            {/* <Input type="password" name="password" id="examplePassword" placeholder="password placeholder" /> */}
-                                        </FormGroup>
-                                    </Col>
-                                </Row>
-
-                                <Row>
-                                    <Col md={6}>
-                                        <FormGroup style={{display: 'grid'}} className="datePickerDiv">
-                                            <Label for="examplePassword">Finish</Label>
-                                            <DatePicker
-                                                selected={this.state.endDate}
-                                                onChange={this.endDateChange}
-                                                className="form-control"
-                                                popperPlacement="bottom"
-                                                popperModifiers={{
-                                                    flip: {
-                                                        behavior: ["bottom"] // don't allow it to flip to be above
-                                                    },
-                                                    preventOverflow: {
-                                                        enabled: false // tell it not to try to stay within the view (this prevents the popper from covering the element you clicked)
-                                                    },
-                                                    hide: {
-                                                        enabled: false // turn off since needs preventOverflow to be enabled
-                                                    }
-                                                }}
-                                            />
-                                            {/* <Input type="password" name="password" id="examplePassword" placeholder="password placeholder" /> */}
-                                        </FormGroup>
-                                    </Col>
-                                    <Col md={6}>
-                                        <FormGroup>
-                                            <Label for="benefits">How Many Benefits</Label>
-                                            <Input type="text" name="benefits" id="benefits`" placeholder="How many times can you benefit" />
-                                        </FormGroup>
-                                    </Col>
-                                </Row>
-
-                                <Row>
-                                    <Col md={6}>
-                                        <FormGroup>
-                                            <Label for="pcode">Promotional Code</Label>
-                                            <Input type="text" name="pcode" id="pcode" placeholder="Promotional Code" />
-                                        </FormGroup>
-                                    </Col>
-                                </Row>
-                                <div className="text-center">
-                                    <Button color="primary">Submit</Button>
-                                </div>
-                            </Form>
-                        </ModalBody>
-                    </Modal>
                 </Container>
 
                 <Container className="mt-3" fluid>
-                    {/* Table */}
                     <Row>
                         <div className="col">
                             <Card className="shadow">
@@ -210,9 +139,9 @@ class Promotions extends React.Component {
                                                 It is the type of promotion that each user can use more than once.
                                             </p>
                                         </Col>
-                                        <Col sm={6}>
+                                        {/* <Col sm={6}>
                                             <Button className="pull-right" color="primary" style={{float:'right'}} size="sm" onClick={(e) => this.addPromotion(2, e)}>Add Promotion</Button>
-                                        </Col>
+                                        </Col> */}
                                     </Row>
                                 </CardHeader>
                                 <Table className="align-items-center table-flush" responsive>
@@ -259,7 +188,6 @@ class Promotions extends React.Component {
                 </Container>
 
                 <Container className="mt-3" fluid>
-                    {/* Table */}
                     <Row>
                         <div className="col">
                             <Card className="shadow">
@@ -271,9 +199,9 @@ class Promotions extends React.Component {
                                                 It is the type of promotion where only the users who know the code can use 1 code and 1 promotion.
                                             </p>
                                         </Col>
-                                        <Col sm={6}>
+                                        {/* <Col sm={6}>
                                             <Button className="pull-right" color="primary" style={{float:'right'}} size="sm" onClick={(e) => this.addPromotion(3, e)}>Add Promotion</Button>
-                                        </Col>
+                                        </Col> */}
                                     </Row>
                                 </CardHeader>
                                 <Table className="align-items-center table-flush" responsive>
@@ -322,6 +250,115 @@ class Promotions extends React.Component {
                         </div>
                     </Row>
                 </Container>
+
+                <Modal size="lg" isOpen={promotionModal} toggle={(e) => this.addPromotion()} className={this.props.className}>
+                    <ModalHeader toggle={(e) => this.addPromotion()}><span style={{fontSize: 20}}> Add Promotion </span></ModalHeader>
+                    <ModalBody>
+                        <Form role="form">
+                            <Input type="select" onChange={this.changeType.bind(this)}>
+                                <option value="">Select Promotion Type</option>
+                                <option value="1">Promotion Type 1</option>
+                                <option value="2">Promotion Type 2</option>
+                                <option value="3">Promotion Type 3</option>
+                            </Input>
+                            { (this.state.promotion_type) && 
+                                <div className="mt-3">
+                                    <Row>
+                                        <Col md={6}>
+                                            <FormGroup>
+                                                <Label for="price">Price</Label>
+                                                <Input type="text" name="price" id="price" placeholder="How Many TL Promotion" />
+                                            </FormGroup>
+                                        </Col>
+                                        <Col md={6}>
+                                            <FormGroup style={{display: 'grid'}} className="datePickerDiv">
+                                                <Label for="examplePassword">Start</Label>
+                                                <DatePicker
+                                                    selected={this.state.startDate}
+                                                    onChange={this.startDateChange}
+                                                    className="form-control"
+                                                    popperPlacement="bottom"
+                                                    
+                                                    popperModifiers={{
+                                                        flip: {
+                                                            behavior: ["bottom"] // don't allow it to flip to be above
+                                                        },
+                                                        preventOverflow: {
+                                                            enabled: false // tell it not to try to stay within the view (this prevents the popper from covering the element you clicked)
+                                                        },
+                                                        hide: {
+                                                            enabled: false // turn off since needs preventOverflow to be enabled
+                                                        }
+                                                    }}
+                                                />
+                                            </FormGroup>
+                                        </Col>
+                                    </Row>
+
+                                    <Row>
+                                        <Col md={6}>
+                                            <FormGroup style={{display: 'grid'}} className="datePickerDiv">
+                                                <Label for="examplePassword">Finish</Label>
+                                                <DatePicker
+                                                    selected={this.state.endDate}
+                                                    onChange={this.endDateChange}
+                                                    className="form-control"
+                                                    popperPlacement="bottom"
+                                                    popperModifiers={{
+                                                        flip: {
+                                                            behavior: ["bottom"] // don't allow it to flip to be above
+                                                        },
+                                                        preventOverflow: {
+                                                            enabled: false // tell it not to try to stay within the view (this prevents the popper from covering the element you clicked)
+                                                        },
+                                                        hide: {
+                                                            enabled: false // turn off since needs preventOverflow to be enabled
+                                                        }
+                                                    }}
+                                                />
+                                            </FormGroup>
+                                        </Col>
+                                        <Col md={6}>
+                                        { (this.state.promotion_type == 1 || this.state.promotion_type == 2) && 
+                                            <FormGroup>
+                                                <Label for="benefits">How Many Benefits</Label>
+                                                <Input type="text" name="benefits" id="benefits`" placeholder="How many times can you benefit" />
+                                            </FormGroup>
+                                        }
+                                        { (this.state.promotion_type == 3) && 
+                                            <FormGroup>
+                                                <Label for="benefits">Prefix</Label>
+                                                <Input type="text" name="prefix" id="prefix`" placeholder="What should the code start with?" />
+                                            </FormGroup>
+                                        }
+                                        </Col>
+                                    </Row>
+
+                                    <Row>
+                                        <Col md={6}>
+                                            { (this.state.promotion_type == 1 || this.state.promotion_type == 2) && 
+                                                <FormGroup>
+                                                    <Label for="pcode">Promotional Code</Label>
+                                                    <Input type="text" name="pcode" id="pcode" placeholder="Promotional Code" />
+                                                </FormGroup>
+                                            }
+                                            { (this.state.promotion_type == 3) && 
+                                                <FormGroup>
+                                                    <Label for="benefits">How many codes are generated</Label>
+                                                    <Input type="text" name="generated_code" id="generated_code`" placeholder="Example: 100" />
+                                                </FormGroup>
+                                            }
+                                        </Col>
+                                    </Row>
+                                    <div className="text-center">
+                                        <Button color="primary">Save Promotion</Button>
+                                    </div>
+                                </div>
+                            }
+                                    
+                        </Form>
+                    </ModalBody>
+                </Modal>
             </>
         )
     }

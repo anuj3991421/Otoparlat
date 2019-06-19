@@ -67,6 +67,9 @@ class ChangePassword extends React.Component {
                                         </InputGroupAddon>
                                     </InputGroup>
                                 </FormGroup>
+                                <div className="text-center mt-3">
+                                    <Button color="primary" type="button">Submit</Button>
+                                </div>
                             </Form>
                         </CardBody>
                     </Card>
