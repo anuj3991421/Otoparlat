@@ -19,12 +19,11 @@ import {
     Table
 } from "reactstrap";
 
-  import Header from "../../components/Headers/Header";
+import Header from "../../components/Headers/Header";
 
 
 class Customers extends React.Component {
     render(){
-        console.log(this.props);
         return(
             <>
                 <Header />

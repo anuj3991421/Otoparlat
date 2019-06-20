@@ -109,12 +109,12 @@ class QuestionList extends React.Component {
                                     <td className="col-4">High quality cleaning material</td>
                                     <td className="col-2">
                                         <Button style={{backgroundColor: '#449d44'}}>
-                                            <i style={{color: '#fff'}} class="fa fa-edit"></i>
+                                            <i style={{color: '#fff'}} className="fa fa-edit"></i>
                                         </Button>
                                     </td>
                                     <td className="col-2">
                                         <Button style={{backgroundColor: '#c9302c'}}>
-                                            <i style={{color: '#fff'}} class="fa fa-times"></i>
+                                            <i style={{color: '#fff'}} className="fa fa-times"></i>
                                         </Button>
                                     </td>
                                 </tr>
@@ -123,12 +123,12 @@ class QuestionList extends React.Component {
                                     <td className="col-4">7 days 24 hours from our application</td>
                                     <td className="col-2">
                                         <Button style={{backgroundColor: '#449d44'}}>
-                                            <i style={{color: '#fff'}} class="fa fa-edit"></i>
+                                            <i style={{color: '#fff'}} className="fa fa-edit"></i>
                                         </Button>
                                     </td>
                                     <td className="col-2">
                                         <Button style={{backgroundColor: '#c9302c'}}>
-                                            <i style={{color: '#fff'}} class="fa fa-times"></i>
+                                            <i style={{color: '#fff'}} className="fa fa-times"></i>
                                         </Button>
                                     </td>
                                 </tr>
@@ -137,12 +137,12 @@ class QuestionList extends React.Component {
                                     <td className="col-4">Yes, experienced car wash</td>
                                     <td className="col-2">
                                         <Button style={{backgroundColor: '#449d44'}}>
-                                            <i style={{color: '#fff'}} class="fa fa-edit"></i>
+                                            <i style={{color: '#fff'}} className="fa fa-edit"></i>
                                         </Button>
                                     </td>
                                     <td className="col-2">
                                         <Button style={{backgroundColor: '#c9302c'}}>
-                                            <i style={{color: '#fff'}} class="fa fa-times"></i>
+                                            <i style={{color: '#fff'}} className="fa fa-times"></i>
                                         </Button>
                                     </td>
                                 </tr>

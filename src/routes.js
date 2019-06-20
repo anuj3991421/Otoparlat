@@ -11,6 +11,9 @@ import OrdersList from './views/Orders/OrdersList';
 import sericeOut from './views/Services/service-out';
 import Promotions from './views/Promotions/promotions';
 import ManagePages from './views/Pages/ManagePages';
+import Cities from './views/Cities/Cities';
+import Admin from './views/Admin/Admin';
+import Cars from './views/Cars/Cars';
 
 //Profile Module Components
 import Profile from './views/Profile/Profile';
@@ -104,10 +107,34 @@ var dashboardRoutes = [
   //   layout: "/dashboard"
   // },
   {
+    path: "/admin",
+    name: "Admin",
+    icon: "ni ni-single-02",
+    component: Admin,
+    layout: "/dashboard",
+    child:null
+  },
+  {
     path: "/customer-list",
     name: "Customers",
     icon: "ni ni-single-02",
     component: CustomerList,
+    layout: "/dashboard",
+    child:null
+  },
+  {
+    path: "/cars",
+    name: "Cars",
+    icon: "fa fa-car",
+    component: Cars,
+    layout: "/dashboard",
+    child:null
+  },
+  {
+    path: "/cities",
+    name: "Cities",
+    icon: "fa fa-map-marker",
+    component: Cities,
     layout: "/dashboard",
     child:null
   },
